@@ -9,60 +9,9 @@
     <script src="functions/function.js"></script>
     <script src="functions/functionTest.js"></script>
 
-    <script>
+    <script src="lambda/lambda.js"></script>
+    <script src="lambda/lambdaTest.js"></script>
 
-
-        // atoms
-
-        const id    = x => x;
-        const konst = x => y => x;
-
-        const F1 = x => (x => x);
-        const F2 = y => (x => y);
-
-        // alpha: rename parameter
-        // beta:  function call, inline parameter
-        // eta:   kürzen, curry, partial application
-
-        // derived
-        // const T = x => y => konst(x)(y); // eta
-        // const T = x => konst(x);         // eta
-        const T = konst;
-        //const F = x => y => y;              // simplest atomic solution // extend with id
-        //const F = x => y => id(y);          // eta y
-        //const F = x => id;                  // extend with konst
-        const F = x => konst(id)(x);          // eta x
-
-        //const F = x => y => konst(id)(x)(y); // eta
-        //const F = x => konst(id)(x); // eta
-        //const F = konst(id);
-
-        // Pair - Prototypical Product
-        const P   = a => b => f => f(a)(b);
-        const fst = p => p(T);
-        const snd = p => p(F);
-
-        const pairOneTwo = P(1)(2);
-        document.writeln( fst(pairOneTwo) === 1);
-        document.writeln( snd(pairOneTwo) === 2);
-
-        // Sum Type
-        const Left   = x => f => g => f (x) ;
-        const Right  = x => f => g => g (x) ;
-        const either = e => f => g => e (f) (g);
-
-        const left = Left(true);
-        document.writeln( either (left) (id) (konst(false)) );
-
-        const right = Right(true);
-        document.writeln( either (right) (konst(false)) (id) );
-
-
-
-
-
-
-    </script>
 
 </body>
 </html>
