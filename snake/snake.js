@@ -1,10 +1,10 @@
+// requires ../lambda/lambda.js
 
 
-
-const north = {dx:  0, dy: -1};
-const east  = {dx:  1, dy:  0};
-const south = {dx:  0, dy:  1};
-const west  = {dx: -1, dy:  0};
+const north = pair( 0)(-1);
+const east  = pair( 1)( 0);
+const south = pair( 0)( 1);
+const west  = pair( 1)( 0);
 
 let direction = north;
 
@@ -12,14 +12,15 @@ const clockwise = [north, east, south, west, north];
 const countercw = [north, west, south, east, north];
 
 let snake = [
-    {x: 10, y: 5},
-    {x: 10, y: 6},
-    {x: 10, y: 7},
-    {x: 10, y: 8},
+    pair(10)(5),
+    pair(10)(6),
+    pair(10)(7),
+    pair(10)(8),
 ];
-let food = {x: 15, y: 15};
+let food = pair(15)(15);
 
-function snakeEquals(a, b) { return a.x === b.x && a.y === b.y }
+// function snakeEquals(a, b) { return a.x === b.x && a.y === b.y }
+const pairEq = a => b =>  fst(a) === fst(b) && snd(a) === snd(b);
 
 function changeDirection(orientation) {
     const idx = orientation.indexOf(direction);
@@ -53,14 +54,13 @@ function nextBoard() {
     const max = 20;
     const oldHead = snake[0];
 
-    const head = {
-        x: inBounds(oldHead.x + direction.dx, max),
-        y: inBounds(oldHead.y + direction.dy, max)
-    };
+    const head = pair
+        ( inBounds(fst(oldHead) + fst(direction), max) )
+        ( inBounds(snd(oldHead) + snd(direction), max) );
 
-    if (snakeEquals(food, head)) {  // have we found any food?
-        food.x = Math.floor(Math.random() * max);   // place new food at random location
-        food.y = Math.floor(Math.random() * max);
+    const pickRandom = () => Math.floor(Math.random() * max);
+    if (pairEq(food)(head)) {  // have we found any food?
+        food = pair(pickRandom())(pickRandom());
     } else {
         snake.pop(); // no food found => no growth despite new head => remove last element
     }
@@ -86,7 +86,7 @@ function display(context) {
 }
 
 function fillBox(context, element) {
-    context.fillRect(element.x * 20 + 1, element.y * 20 + 1, 18, 18);
+    context.fillRect(fst(element) * 20 + 1, snd(element) * 20 + 1, 18, 18);
 }
 
 

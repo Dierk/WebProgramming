@@ -1,15 +1,15 @@
 //  before start, snake is in start position
-    document.writeln(snakeEquals(snake[0], {x: 10, y: 5}));
+    document.writeln(pairEq(snake[0]) (pair(10)(5)));
 
 //  after one step, snake has moved up
     nextBoard();
-    document.writeln(snakeEquals(snake[0], {x: 10, y: 4}));
+    document.writeln(pairEq(snake[0]) (pair(10)(4)));
 
 //  before eating food, snake is of size 4
     document.writeln(snake.length === 4);
 
 //  after eating food, snake has grown in size
-    food = {x: 10, y: 3};
+    food = pair(10)(3);
     nextBoard();
     document.writeln(snake.length === 5);
 
