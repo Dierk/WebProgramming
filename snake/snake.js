@@ -34,8 +34,24 @@ function changeDirection(orientation) {
     direction = orientation[idx + 1];
 }
 
+function safeGetElementById(id) {
+    let result = document.getElementById(id);
+    return result === undefined || result === null
+           ? Left  ("cannot find element with id "+id)
+           : Right (result)
+}
+
+const log = s => console.log(s);
+
 function start() {
-    const canvas  = document.getElementById("canvas");
+
+    either (safeGetElementById("canvas"))
+           (log)
+           (startWithCanvas);
+}
+
+const startWithCanvas = canvas => {
+
     const context = canvas.getContext("2d");
 
     const rightArrow = 39;
