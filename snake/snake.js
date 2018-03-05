@@ -22,6 +22,13 @@ let food = pair(15)(15);
 // function snakeEquals(a, b) { return a.x === b.x && a.y === b.y }
 const pairEq = a => b =>  fst(a) === fst(b) && snd(a) === snd(b);
 
+// Pair + Pair = Pair        // Monoid
+const pairPlus = a => b =>  pair (fst(a) + fst(b)) (snd(a) + snd(b));
+
+// Funktion und Pair = Pair  // Functor
+const pairMap = f => p =>  pair ( f (fst(p)) ) ( f (snd(p)) );
+
+
 function changeDirection(orientation) {
     const idx = orientation.indexOf(direction);
     direction = orientation[idx + 1];
@@ -44,19 +51,18 @@ function start() {
     }, 1000 / 5);
 }
 
-function inBounds(x, max) {
+const inBounds = max => x => {
     if (x < 0)   { return max - 1 }
     if (x > max) { return 0 }
     return x
-}
+};
 
 function nextBoard() {
     const max = 20;
     const oldHead = snake[0];
 
-    const head = pair
-        ( inBounds(fst(oldHead) + fst(direction), max) )
-        ( inBounds(snd(oldHead) + snd(direction), max) );
+    const newHead = pairPlus (oldHead) (direction);
+    const head    = pairMap  (inBounds(max)) (newHead) ;
 
     const pickRandom = () => Math.floor(Math.random() * max);
     if (pairEq(food)(head)) {  // have we found any food?
