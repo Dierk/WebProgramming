@@ -6,15 +6,22 @@
 </head>
 <body>
 
-    <script src="function/function.js"></script>
-    <script src="function/functionTest.js"></script>
+    <script>
+        const suiteNames = [
+            'function',
+            'lambda',
+            'snake',
+            'plotter',
+            'excel'
+        ];
 
-    <script src="lambda/lambda.js"></script>
-    <script src="lambda/lambdaTest.js"></script>
+        suiteNames.forEach( suiteName => {
+            document.writeln('<div> '+ suiteName +'</div>');
+            document.writeln('<script src="'+suiteName+'/'+suiteName+'.js"><' + '/script>');
+            document.writeln('<script src="'+suiteName+'/'+suiteName+'Test.js"><' + '/script>');
+        });
 
-    <script src="snake/snake.js"></script>
-    <script src="snake/snakeTest.js"></script>
-
+    </script>
 
 </body>
 </html>

@@ -23,6 +23,13 @@ function fillTable(container) {
             input.setAttribute("VALUE", Formulae[cellid]);
             input.setAttribute("ID", cellid);
 
+            input.onclick = evt => {
+                input.value = Formulae[cellid]
+            };
+            input.onchange = evt => {
+                Formulae[cellid] = input.value;
+                refresh();
+            };
             // todo: what to do on input change or onClick?
 
             td.appendChild(input);
@@ -39,6 +46,7 @@ function refresh() {
 
             let input   = document.getElementById(cellid);
 
+            input.value = eval(Formulae[cellid]);
             // todo: how to refresh the input value?
 
         });

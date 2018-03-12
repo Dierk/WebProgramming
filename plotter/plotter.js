@@ -9,7 +9,12 @@ function start() {
     const canvas       = document.getElementById('canvas');
     const context      = canvas.getContext("2d");
 
-    // todo: how to display?
+    display(context, y => eval( "let x="+y+";" + userFunction.value));
+
+    userFunction.onchange = evt => {
+        display(context, x => eval(userFunction.value))
+    }
+
 }
 
 function display(context, f) {
@@ -22,7 +27,7 @@ function display(context, f) {
 
     context.fillStyle = "black";
     context.beginPath();
-    context.moveTo(normx(minX), normy(f(minX)));
+    context.moveTo(normx(minX), normy(f(minY)));
 
     const stride = (maxX - minX) / 100; // 100 Stützstellen
     for (let x = minX; x <= maxX; x += stride) {
