@@ -1,27 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>All Tests</title>
+    <title> All Tests </title>
+    <script src="util/test.js"></script>
 </head>
 <body>
 
-    <script>
-        const suiteNames = [
-            'function',
-            'lambda',
-            'snake',
-            'plotter',
-            'excel'
-        ];
+<h1>All Tests in HtmlJs</h1>
 
-        suiteNames.forEach( suiteName => {
-            document.writeln('<div> '+ suiteName +'</div>');
-            document.writeln('<script src="'+suiteName+'/'+suiteName+'.js"><' + '/script>');
-            document.writeln('<script src="'+suiteName+'/'+suiteName+'Test.js"><' + '/script>');
-        });
+<pre>
 
-    </script>
+<script>
+
+    const testNames = [
+        'util'
+    ];
+
+    testNames.forEach( testName => {
+
+
+        document.write(`<script src="${testName}/${testName}.js"></s`+'cript>'); // dirty trick of the day
+        document.write(`<script src="${testName}/${testName}Test.js"></s`+'cript>');
+
+
+    });
+
+    document.writeln("\nCheck possible 'compile' errors in the console .")
+
+</script>
+
+</pre>
 
 </body>
 </html>
