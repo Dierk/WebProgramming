@@ -1,5 +1,4 @@
 
-// todo: implement the times function
 
 const timesFunction = function(callback) {
   if( isNaN(parseInt(Number(this.valueOf()))) ) {

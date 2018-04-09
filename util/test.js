@@ -2,7 +2,31 @@
 
 // find a solution for suite, test, assert
 
+function Assert() {
+    const ok = [];
+    return {
+        getOk: () => ok,
+        is:    (current, expected) => {
+            const result = current === expected;
+            if(! result) {
+                console.log("expected '"
+                            + expected
+                            + "' but was '"
+                            + current + "'");
+                try { throw Error(); }
+                catch (err) { console.log(err) };
+            }
+            ok.push(result);
+        },
+        true:  cond => ok.push(cond),
+    }
+}
 
+function test(name, callback) {
+    const assert = Assert();
+    callback(assert);
+    report(name, assert.getOk());
+}
 
 // test result report
 // report :: String, [Bool] -> DOM ()
