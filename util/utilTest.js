@@ -1,13 +1,6 @@
 
 // requires util.js
 
-test("util-fake", assert => {
-    const x = 1;
-    assert.true(true);
-    assert.is(x, 1);
-});
-
-
 // extending the prototype of many objects
 test("util-times", assert => {
 
