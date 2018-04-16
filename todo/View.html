@@ -5,7 +5,7 @@
     <title>Todos</title>
     <style>
         body {
-            background: burlywood;
+            background: papayawhip;
             font-family: "Helvetica Neue", "sans-serif";
         }
         div {
@@ -13,7 +13,7 @@
         }
     </style>
 </head>
-<body onload="startTodo()">
+<body>
 
 <button onclick="addTodo()">Add Todo</button>
 
@@ -29,6 +29,12 @@
 
 
 <script src="todo.js"></script>
+<script>
+    startTodo(
+        document.getElementById('todoContainer'),
+        document.getElementById('numberOfTasks'),
+        document.getElementById('openTasks'));
+</script>
 
 </body>
 

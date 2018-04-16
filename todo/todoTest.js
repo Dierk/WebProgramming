@@ -38,19 +38,19 @@ test("todo-crud", assert => {
     assert.is(numberOfTasks.innerText, '2');
     assert.is(openTasks.innerText, '1');
 
-    const firstDel = todoContainer.children[0].querySelector(".del");
-    assert.is(firstDel.innerText, 'X');
-
-    firstDel.click();
-
-    assert.is(numberOfTasks.innerText, '1');
-    assert.is(openTasks.innerText, '1');  // we have delete a done tasks, so number of open tasks is unchanged
-
-    const lastDel = todoContainer.children[0].querySelector(".del");
-    lastDel.click();
-
-    assert.is(todoContainer.children.length, 0);
-    assert.is(numberOfTasks.innerText, '0');
-    assert.is(openTasks.innerText, '0');
+    // const firstDel = todoContainer.children[0].querySelector(".del");
+    // assert.is(firstDel.innerText, 'X');
+    //
+    // firstDel.click();
+    //
+    // assert.is(numberOfTasks.innerText, '1');
+    // assert.is(openTasks.innerText, '1');  // we have delete a done tasks, so number of open tasks is unchanged
+    //
+    // const lastDel = todoContainer.children[0].querySelector(".del");
+    // lastDel.click();
+    //
+    // assert.is(todoContainer.children.length, 0);
+    // assert.is(numberOfTasks.innerText, '0');
+    // assert.is(openTasks.innerText, '0');
 
 });
