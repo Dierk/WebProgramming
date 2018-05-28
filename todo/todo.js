@@ -14,6 +14,7 @@ const Todo = () => {
 };
 
 const model = ObservableList( [] );
+const flux  = Scheduler();
 
 function startTodo(todoContainer, numberOfTasks, openTasks) {
     // attach list-wide listeners
@@ -77,9 +78,16 @@ function fortune() {
     todo.setText("< waiting >");
     model.add(todo);
 
-    fortuneService( text => {
-        todo.setText(text);
-    } )
+    flux.add( ok => {
+        fortuneService( text => {
+            ok();
+            todo.setText(text);
+        } )
+    });
+
+
+
+
 }
 
 
