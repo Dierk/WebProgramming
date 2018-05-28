@@ -63,6 +63,9 @@ function newRow(todoContainer, todo) {
         done.innerText = newVal ? "Done" : "OK";
         done.onclick = null;
     });
+    todo.textAttr().onChange( _ => {
+        inp.value = todo.getText()
+    });
 }
 
 function newTodo() { // to be called by UI
@@ -70,13 +73,12 @@ function newTodo() { // to be called by UI
 }
 
 function fortune() {
-    const button = document.getElementById('fortune');
-    button.disabled = true;
+    const todo = Todo();
+    todo.setText("< waiting >");
+    model.add(todo);
+
     fortuneService( text => {
-        button.disabled = false;
-        const todo = Todo();
         todo.setText(text);
-        model.add(todo);
     } )
 }
 
