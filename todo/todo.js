@@ -1,12 +1,15 @@
 // requires ../observable/observable.js
 
 const Todo = () => {
-    const textAttr = Observable("text");
+    const textAttr = Observable("todo");
     const doneAttr = Observable(false);
     return {
         getDone:  ()   => doneAttr.getValue(),     // veneer method
         setDone:  done => doneAttr.setValue(done), // veneer method
         doneAttr: ()   => doneAttr,
+        getText:  ()   => textAttr.getValue(),     // veneer method
+        setText:  text => textAttr.setValue(text), // veneer method
+        textAttr: ()   => textAttr,
     }
 };
 
@@ -32,7 +35,7 @@ function newRow(todoContainer, todo) {
     let row  = document.createElement("TR");
     let text = document.createElement("TD");
     let inp  = document.createElement("INPUT");
-    inp.value = "todo";
+    inp.value = todo.getText();
     text.appendChild(inp);
     row.appendChild(text);
 
@@ -60,9 +63,33 @@ function newRow(todoContainer, todo) {
         done.innerText = newVal ? "Done" : "OK";
         done.onclick = null;
     });
-
 }
 
 function newTodo() { // to be called by UI
     model.add(Todo());
 }
+
+function fortune() {
+    const button = document.getElementById('fortune');
+    button.disabled = true;
+    fortuneService( text => {
+        button.disabled = false;
+        const todo = Todo();
+        todo.setText(text);
+        model.add(todo);
+    } )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
