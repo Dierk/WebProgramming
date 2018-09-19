@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html><head></head><body>
+
+<h1>Testing Snake</h1>
+
+<script language="javascript" src="snake.js">
+</script>
+<pre>
+
+<script language="javascript">
+
+let ok = [];
+
+// before start, snake is in start position
+ok.push(snakeEquals(snake[0] , {x: 10, y: 5} ));
+
+// after one step, snake has moved up
+nextBoard();
+ok.push(snakeEquals(snake[0] , {x: 10, y: 4} ));
+
+// before eating food, snake is of size 4
+ok.push(snake.length === 4);
+
+// after eating food, snake has grown in size
+food = {x: 10, y: 3};
+nextBoard();
+ok.push(snake.length === 5);
+
+// current direction is north
+ok.push(direction === north);
+
+// when I go clockwise, I end up east
+changeDirection(clockwise);
+ok.push(direction === east);
+
+// going counterclockwise, we end up north again
+changeDirection(countercw);
+ok.push(direction === north);
+
+// test result report
+if ( ok.every( elem => elem) ) {
+    document.writeln("All "+ ok.length +" tests ok.");
+} else {
+    document.writeln("Not all tests ok! Details:");
+    for (let i = 0; i<ok.length; i++) {
+        if(ok[i]) {
+            document.writeln("Test "+ i +" ok");
+        } else {
+            document.writeln("Test "+ i +" failed");
+        }
+    }
+}
+
+</script>
+
+</pre>
+</body>
+<html>
