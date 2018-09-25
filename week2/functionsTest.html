@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Function Tests</title>
+</head>
+<body>
+    <script>
+
+        function fun1()    { return 1; }
+
+        function fun2()    { return 1; }
+        function fun2(arg) { return arg; }
+
+        function noReturn()    { 1; }
+        const noReturn2 = () => { 1; };
+        const noReturn3 = () => 1;
+
+        const myfun = fun1;
+        const funs = [null, undefined, fun1, fun2];
+
+        document.writeln( fun1()   === 1 );
+        document.writeln( fun1(42) === 1 );
+
+        document.writeln( fun2() !== 1  );
+        document.writeln( fun2() === undefined );
+
+        document.writeln( fun2(42) === 42 );
+
+        document.writeln( myfun() === 1 );
+
+        document.writeln( funs[2]() === 1 );
+
+        document.writeln( noReturn() !== 1 );
+        document.writeln( noReturn2() !== 1 );
+        document.writeln( noReturn3() === 1 );
+
+        function doit(waszutunist) {
+            return function bla(arg) { return waszutunist(arg) }
+        }
+
+        document.writeln( doit(fun1)(10) === 1 );
+        document.writeln( doit(fun2)(10) === 10 );
+
+        const doit2 = callme => arg => callme(arg) ;
+
+        document.writeln( doit2(fun1)(10) === 1 );
+
+        const doFun2 = doit2(fun1);
+
+        document.writeln( doFun2(10) === 1 );
+        document.writeln( doFun2()   === 1 );
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
