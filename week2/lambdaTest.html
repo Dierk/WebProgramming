@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Function Tests</title>
+</head>
+<body>
+    <script>
+
+        const id = x => x;
+        const I = id;
+
+        document.writeln( id(1) === 1 );
+        document.writeln( id(id) === id );
+
+        const konst = x => y => x;
+        const K = konst;
+
+        document.writeln( konst(42)(0) === 42 );
+        document.writeln( konst(42)(1) === 42 );
+        document.writeln( konst(42)(null) === 42 );
+
+        document.writeln( konst(id)(null)(42) === 42 );
+
+        const kite = konst(id);
+        const KI = kite;
+
+        const kite1 = x => y => y;   // === konst(id) === K(I)
+        const kite1 = x => y => id(y);   // beta expansion
+        const kite1 = x =>      id;      // eta reduction
+        const kite1 = x => konst(id)(x); // beta expansion
+        const kite1 = konst(id); // qed.
+
+        document.writeln( kite(null)(42) === 42 );
+
+
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
