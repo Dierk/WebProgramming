@@ -2,7 +2,7 @@
 
 (() => {
 
-    let ok = [];
+    const ok = [];
 
 // IIFE
     (function () {

@@ -19,7 +19,12 @@
 
 // flip, C
 
+    ok.push( flip (konst) (1) (0)  === konst (0) (1) );
+    ok.push( flip (KI)    (1) (0)  === KI    (0) (1) );
+
 // true
+
+    ok.push (  T (1) (0) === 1 );
 
 // false
 

@@ -1,6 +1,6 @@
 ( () => {
 
-    let ok = [];
+    const ok = [];
 
 // before start, snake is in start position
     ok.push(snakeEquals(snake[0], {x: 10, y: 5}));
