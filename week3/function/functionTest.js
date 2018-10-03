@@ -1,24 +1,43 @@
 // requires function.js
 
+(() => {
+
+    let ok = [];
+
 // IIFE
-( function() {
-    let x = true;
-    document.writeln(x);
+    (function () {
+        let x = true;
+        ok.push(x);
+    })();
+
+    try { // test x is not in scope
+        x;
+        ok.push(false)
+    } catch (e) {
+        ok.push(true)
+    }
+
+    ok.push(hasNoReturn(1) === undefined);
+    ok.push(hasReturn(1) === 1);
+
+    ok.push(lambdaFun1(1) === 1);
+    ok.push(lambdaFun2(1, 1) === 2);
+    ok.push(lambdaFun3(1)(1) === 2);
+    ok.push(lambdaFun4(1)(1) === 2);
+    ok.push(any(1)(1) === 2);
+
+// test result report
+    if (ok.every(elem => elem)) {
+        document.writeln("All " + ok.length + " tests ok.");
+    } else {
+        document.writeln("Not all tests ok! Details:");
+        for (let i = 0; i < ok.length; i++) {
+            if (ok[i]) {
+                document.writeln("Test " + i + " ok");
+            } else {
+                document.writeln("Test " + i + " failed");
+            }
+        }
+    }
+
 })();
-
-try { // test x is not in scope
-    x;
-    document.writeln(false)
-} catch (e) {
-    document.writeln(true)
-}
-
-
-document.writeln( hasNoReturn(1)    === undefined);
-document.writeln( hasReturn(1)      === 1);
-
-document.writeln( lambdaFun1(1)     === 1);
-document.writeln( lambdaFun2(1,1)   === 2);
-document.writeln( lambdaFun3(1)(1)  === 2);
-document.writeln( lambdaFun4(1)(1)  === 2);
-document.writeln( any(1)(1)         === 2);
