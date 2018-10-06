@@ -1,10 +1,10 @@
 
+const max = 20;
 
-
-const north = {dx:  0, dy: -1};
-const east  = {dx:  1, dy:  0};
-const south = {dx:  0, dy:  1};
-const west  = {dx: -1, dy:  0};
+const north = pair ( 0) (-1) ;
+const east  = pair ( 1) ( 0) ;
+const south = pair ( 0) ( 1) ;
+const west  = pair (-1) ( 0) ;
 
 let direction = north;
 
@@ -12,14 +12,12 @@ const clockwise = [north, east, south, west, north];
 const countercw = [north, west, south, east, north];
 
 let snake = [
-    {x: 10, y: 5},
-    {x: 10, y: 6},
-    {x: 10, y: 7},
-    {x: 10, y: 8},
+    pair (10) (5),
+    pair (10) (6),
+    pair (10) (7),
+    pair (10) (8),
 ];
-let food = {x: 15, y: 15};
-
-function snakeEquals(a, b) { return a.x === b.x && a.y === b.y }
+let food = pair (15) (15);
 
 function changeDirection(orientation) {
     const idx = orientation.indexOf(direction);
@@ -43,27 +41,26 @@ function start() {
     }, 1000 / 5);
 }
 
-function inBounds(x, max) {
-    if (x < 0)   { return max - 1 }
-    if (x > max) { return 0 }
-    return x
-}
+
+const wrap = x =>
+    iff (x < 0)
+        (max - 1)
+        (iff (x >= max)
+             (0)
+             (x));
 
 function nextBoard() {
-    const max = 20;
     const oldHead = snake[0];
 
-    const head = {
-        x: inBounds(oldHead.x + direction.dx, max),
-        y: inBounds(oldHead.y + direction.dy, max)
-    };
+    const wrappedPlus = x => y => wrap(x + y);
+    const head = pOp (wrappedPlus) (oldHead) (direction);
 
-    if (snakeEquals(food, head)) {  // have we found any food?
-        food.x = Math.floor(Math.random() * max);   // place new food at random location
-        food.y = Math.floor(Math.random() * max);
-    } else {
-        snake.pop(); // no food found => no growth despite new head => remove last element
-    }
+    const randomPos = () => Math.floor(Math.random() * max);
+
+    pEquals(food)(head)
+        ( () => food = pair(randomPos())(randomPos()) )
+        ( () => snake.pop() )
+    ();
 
     snake.unshift(head); // put head at front of the list
 }
@@ -86,7 +83,7 @@ function display(context) {
 }
 
 function fillBox(context, element) {
-    context.fillRect(element.x * 20 + 1, element.y * 20 + 1, 18, 18);
+    context.fillRect(fst(element) * 20 + 1, snd(element) * 20 + 1, 18, 18);
 }
 
 

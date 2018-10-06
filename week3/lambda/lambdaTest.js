@@ -53,6 +53,12 @@
 
 // pair equal
 
+    ok.push( pEquals (pair(1)(0)) (pair(1)(0)) === T  );
+    ok.push( pEquals (pair(1)(0)) (pair(0)(0)) === F );
+
+    const op = x => y => x + y;
+    ok.push( pEquals (pOp (op) (pair(0)(1)) (pair(2)(3))) (pair(2)(4) ) === T);
+
 // either
 
 // maybe
