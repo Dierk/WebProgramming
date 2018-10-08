@@ -33,6 +33,11 @@ const iff = expr => expr ? T : F;
 
 const pEquals = p1 => p2 => fst(p1) === fst(p2) && snd(p1) === snd(p2) ? T : F;
 const pShow  = p => "(" + fst(p) + "," + snd(p) + ")";
+
+// monoid
 const pOp     = op => p1 => p2 => pair
     (op(fst(p1))(fst(p2)))
     (op(snd(p1))(snd(p2)));
+
+// functor
+const pMap = f => p => pair (f(fst(p))) (f(snd(p)));

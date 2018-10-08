@@ -53,12 +53,12 @@ function nextBoard() {
     const oldHead = snake[0];
 
     const wrappedPlus = x => y => wrap(x + y);
-    const head = pOp (wrappedPlus) (oldHead) (direction);
+    const head = pOp (wrappedPlus) (oldHead) (direction);  // monoid
 
     const randomPos = () => Math.floor(Math.random() * max);
 
     pEquals(food)(head)
-        ( () => food = pair(randomPos())(randomPos()) )
+        ( () => food = pMap (randomPos) (food) )           // functor
         ( () => snake.pop() )
     ();
 
