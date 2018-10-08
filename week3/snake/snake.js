@@ -34,10 +34,14 @@ function start() {
         const orientation = (evt.keyCode === rightArrow) ? clockwise : countercw;
         changeDirection(orientation);
     };
+    run(context);
+}
 
-    setInterval(() => {
+function run(context) {
+    setTimeout(() => {
         nextBoard();
         display(context);
+        run(context);
     }, 1000 / 5);
 }
 
