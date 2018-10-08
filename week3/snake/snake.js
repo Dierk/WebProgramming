@@ -39,12 +39,14 @@ function start() {
 
 function run(context) {
     setTimeout(() => {
-        nextBoard();
-        display(context);
-        run(context);
+        if (nextBoard()) {
+            display(context);
+            run(context);
+        }
     }, 1000 / 5);
 }
 
+const paIncludes = pa => p => pa.map(pEquals(p)).includes(T);
 
 const wrap = x =>
     iff (x < 0)
@@ -66,7 +68,11 @@ function nextBoard() {
         ( () => snake.pop() )
     ();
 
+    const proceed = false === paIncludes(snake)(head);
+
     snake.unshift(head); // put head at front of the list
+
+    return proceed;
 }
 
 function display(context) {

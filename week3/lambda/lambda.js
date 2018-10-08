@@ -42,4 +42,3 @@ const pOp     = op => p1 => p2 => pair
 // functor
 const pMap = f => p => pair (f(fst(p))) (f(snd(p)));
 
-
