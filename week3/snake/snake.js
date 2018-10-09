@@ -25,28 +25,26 @@ function changeDirection(orientation) {
 }
 
 function start() {
-    const canvas  = document.getElementById("canvas");
-    const context = canvas.getContext("2d");
-
     const rightArrow = 39;
     const leftArrow  = 37;
     window.onkeydown = evt => {
         const orientation = (evt.keyCode === rightArrow) ? clockwise : countercw;
         changeDirection(orientation);
     };
-    run(context);
+    run();
 }
 
-const proceed = context => () => {
-    display(context);
-    run(context);
-}
-const done = () => console.log('Done. Points: ' + snake.length)
+const proceed = () => {
+    display();
+    run();
+};
 
-function run(context) {
+const done = () => console.log('Done. Points: ' + snake.length);
+
+function run() {
     setTimeout(
         nextBoard()
-            ( proceed(context) )
+            ( proceed )
             ( done )
         , 1000 / 5);
 }
@@ -80,7 +78,11 @@ function nextBoard() {
     return proceed;
 }
 
-function display(context) {
+
+const canvas  = document.getElementById("canvas");
+const context = canvas.getContext("2d");
+
+function display() {
     // clear
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
