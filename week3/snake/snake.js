@@ -37,16 +37,21 @@ function start() {
     run(context);
 }
 
+const proceed = context => () => {
+    display(context);
+    run(context);
+}
+const done = () => console.log('Done. Points: ' + snake.length)
+
 function run(context) {
-    setTimeout(() => {
-        if (nextBoard()) {
-            display(context);
-            run(context);
-        }
-    }, 1000 / 5);
+    setTimeout(
+        nextBoard()
+            ( proceed(context) )
+            ( done )
+        , 1000 / 5);
 }
 
-const paIncludes = pa => p => pa.map(pEquals(p)).includes(T);
+const paIncludes = pa => p => iff (pa.map(pEquals(p)).includes(T));
 
 const wrap = x =>
     iff (x < 0)
@@ -68,7 +73,7 @@ function nextBoard() {
         ( () => snake.pop() )
     ();
 
-    const proceed = false === paIncludes(snake)(head);
+    const proceed = not (paIncludes(snake)(head));
 
     snake.unshift(head); // put head at front of the list
 

@@ -31,13 +31,21 @@ const snd = p => p (F);
 
 const iff = expr => expr ? T : F;
 
-const pEquals = p1 => p2 => fst(p1) === fst(p2) && snd(p1) === snd(p2) ? T : F;
 const pShow  = p => "(" + fst(p) + "," + snd(p) + ")";
 
 // monoid
 const pOp     = op => p1 => p2 => pair
     (op(fst(p1))(fst(p2)))
     (op(snd(p1))(snd(p2)));
+
+const same = x => y => iff (x === y);
+// const pSame = p1 => p2 => pOp (same) (p1) (p2);
+const pSame = pOp (same);
+const pTrue = p => and (fst(p)) (snd(p));  // is pair (T) (T)
+const pEquals = p1 => p2 => pTrue (pSame (p1)(p2));
+// const pEquals = p1 => p2 => fst(p1) === fst(p2) && snd(p1) === snd(p2) ? T : F;
+
+
 
 // functor
 const pMap = f => p => pair (f(fst(p))) (f(snd(p)));
