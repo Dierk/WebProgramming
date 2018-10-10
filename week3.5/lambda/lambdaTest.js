@@ -61,3 +61,14 @@
     report('lambda', ok);
 
 })();
+
+( () => {
+    const ok = [];
+
+    ok.push( or (T) (T) === T );
+    ok.push( or (T) (F) === T );
+    ok.push( or (F) (T) === T );
+    ok.push( or (F) (F) === F );
+
+    report('lambda-or', ok)
+}) ();

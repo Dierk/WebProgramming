@@ -24,6 +24,9 @@ const not = flip ;
 const and = p => q => p (q) (p);
 // const and = p => flip (p) (p);
 
+const M  = f => f(f); // self-application, Mockingbird
+const or = M;
+
 const pair = x => y => f => f(x)(y);
 
 const fst = p => p (T);
