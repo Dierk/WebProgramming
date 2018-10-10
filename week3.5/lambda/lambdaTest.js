@@ -58,6 +58,6 @@
 // maybe
 
 
-    report(ok);
+    report('lambda', ok);
 
 })();

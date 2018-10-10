@@ -27,6 +27,6 @@
     ok.push(any(1)(1) === 2);
 
 
-    report(ok);
+    report('functions', ok);
 
 })();

@@ -28,6 +28,6 @@
     changeDirection(countercw);
     ok.push(direction === north);
 
-    report(ok);
+    report('snake', ok);
 
 })  ();

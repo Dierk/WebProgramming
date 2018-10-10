@@ -1,8 +1,9 @@
 
 // report :: [Bool] -> ()
 
-function report(ok) {
+function report(origin, ok) {
 // test result report
+    document.write(origin + ": ")
     if (ok.every(elem => elem)) {
         document.writeln("All " + ok.length + " tests ok.");
     } else {
