@@ -32,3 +32,5 @@ const pair = x => y => f => f(x)(y);
 const fst = p => p (T);
 const snd = p => p (F);
 
+const pEquals = a => b => fst(a) === fst(b) && snd(a) === snd(b)
+
