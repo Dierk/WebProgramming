@@ -97,7 +97,6 @@
     // share object instance
     const other = good;
     ok.push(good.getName() === "Good Boy");
-    ok.push(other.getName() === "Good Boy");
 
     // change value
     other.firstname = "Other";
