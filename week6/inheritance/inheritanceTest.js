@@ -86,7 +86,9 @@
             worklog: worklog,
             work:    () => worklog.push(worker.work())
         };
-        // hm ...
+
+        Object.setPrototypeOf(result,  Prof.prototype);
+
         return result
     }
 
