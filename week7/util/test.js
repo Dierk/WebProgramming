@@ -6,8 +6,18 @@
 function test(name, f) {
     const store = [];
     const ok = {
-        push: boolExpr           => store.push(boolExpr),
-        is:   (actual, expected) => ok.push(actual === expected)
+        true:  boolExpr          => {
+            store.push(boolExpr);
+            if (!boolExpr) {
+                console.error("test failed");
+            }
+        },
+        is:   (actual, expected) => {
+            store.push(actual === expected);
+            if (actual !== expected) {
+                console.error("test failed, expected " + expected + " actual " + actual)
+            }
+        }
     };
 
     f(ok);

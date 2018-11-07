@@ -16,6 +16,6 @@ test('util-times', ok => {
 
 test('util-dummy', ok => {
     const a = 1;
-    ok.push(a === 1);
+    ok.true(a === 1);
 });
 
