@@ -4,11 +4,15 @@
 
 
 function test(name, f) {
-    let ok = [];
+    const store = [];
+    const ok = {
+        push: boolExpr           => store.push(boolExpr),
+        is:   (actual, expected) => ok.push(actual === expected)
+    };
 
     f(ok);
 
-    report(name, ok);
+    report(name, store);
 }
 
 // test result report

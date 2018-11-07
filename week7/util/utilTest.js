@@ -8,9 +8,9 @@ test('util-times', ok => {
 
     (10).times( n => collect.push(n) );
 
-    ok.push(collect.length === 10);
-    ok.push(collect[0] === 0);
-    ok.push(collect[9] === 9);
+    ok.is(collect.length , 10);
+    ok.is(collect[0]     , 0);
+    ok.is(collect[9]     , 9);
 
 });
 
