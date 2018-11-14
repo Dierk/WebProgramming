@@ -2,10 +2,9 @@
 
 // find a solution for suite, test, assert
 
-
-function test(name, f) {
+const Assert = () => {
     const store = [];
-    const ok = {
+    return {
         true:  boolExpr          => {
             store.push(boolExpr);
             if (!boolExpr) {
@@ -17,12 +16,15 @@ function test(name, f) {
             if (actual !== expected) {
                 console.error("test failed, expected " + expected + " actual " + actual)
             }
-        }
+        },
+        getStore: () => store,
     };
+};
 
-    f(ok);
-
-    report(name, store);
+function test(name, f) {
+    const assertion = Assert();
+    f(assertion);
+    report(name, assertion.getStore());
 }
 
 // test result report

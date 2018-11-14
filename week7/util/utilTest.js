@@ -3,19 +3,19 @@
 
 
 // extending the prototype of many objects
-test('util-times', ok => {
+test('util-times', assert => {
     const collect = [];
 
     (10).times( n => collect.push(n) );
 
-    ok.is(collect.length , 10);
-    ok.is(collect[0]     , 0);
-    ok.is(collect[9]     , 9);
+    assert.is(collect.length , 10);
+    assert.is(collect[0]     , 0);
+    assert.is(collect[9]     , 9);
 
 });
 
-test('util-dummy', ok => {
+test('util-dummy', assert => {
     const a = 1;
-    ok.true(a === 1);
+    assert.true(a === 1);
 });
 
