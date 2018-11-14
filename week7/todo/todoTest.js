@@ -40,4 +40,24 @@ test("todo-setup", assert => {
     assert.is(numberOfOpenTasks.innerText, "0");
     assert.is(numberOfTasks.innerText, "1");        // do not accidentally change
 
+    // when I click "X", the now closed task should be deleted and the number of tasks must decrease
+
+    const firstTaskXTD = () => todoContainer.childNodes[0].childNodes[1];
+
+    firstTaskXTD().click();
+
+    assert.is(todoContainer.childNodes.length, 0);
+    assert.is(numberOfOpenTasks.innerText, "0");    // must not decrease when removing closed tasks
+    assert.is(numberOfTasks.innerText, "0");        // must decrease
+
+    // when I delete an open task, the numbers of open tasks must decrease
+
+    addTodo();
+
+    assert.is(numberOfOpenTasks.innerText, "1");
+
+    firstTaskXTD().click();
+
+    assert.is(numberOfOpenTasks.innerText, "0");
+
 });
