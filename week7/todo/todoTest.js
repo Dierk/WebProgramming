@@ -58,6 +58,8 @@ test("todo-done-del", assert => {  // when I click "ok", the task should be mark
     assert.is(numberOfOpenTasks.innerText, "0");
     assert.is(numberOfTasks.innerText, "1");        // do not accidentally change
 
+    // todo: what if we click again?
+
     // when I click "X", the now closed task should be deleted and the number of tasks must decrease
 
     const firstTaskXTD = todoContainer.childNodes[0].childNodes[1];
