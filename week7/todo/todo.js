@@ -6,7 +6,6 @@ let numberOfOpenTasksRef = 0;
 function startTodo(startToDoContainer,
                    startNumberOfTasks,
                    startNumberOfOpenTasks) {
-
     todoContainerRef       = startToDoContainer;
     numberOfOpenTasksRef   = startNumberOfOpenTasks;
     numberOfTasksRef       = startNumberOfTasks
@@ -23,6 +22,10 @@ function addTodo() {
 
     const okTD = document.createElement("TD");
     okTD.innerText = "OK";
+    okTD.onclick = evt => {
+        okTD.innerText = "Done";
+        numberOfOpenTasksRef.innerText = Number(numberOfOpenTasksRef.innerText) - 1;
+    };
 
     const tr = document.createElement("TR");
 

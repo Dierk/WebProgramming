@@ -12,20 +12,32 @@ test("todo-setup", assert => {
     const numberOfTasks = document.createElement("SPAN");
     numberOfTasks.innerText = "0";
 
-    startTodo(todoContainer,numberOfTasks,numberOfOpenTasks);
+    startTodo(todoContainer, numberOfTasks, numberOfOpenTasks);
 
     assert.true(! todoContainer.hasChildNodes());
     assert.is(numberOfOpenTasks.innerText, "0");
     assert.is(numberOfTasks.innerText, "0");
 
-    // todo: when I click on "add" I should have 1 task and 1 open task
+    // when I click on "add" I should have 1 task and 1 open task
 
     addTodo();
 
     assert.is(todoContainer.childNodes.length, 1);
-    assert.is(todoContainer.childNodes[0].childNodes[2].innerText, "OK");
+
+    const firstTaskOkTD = todoContainer.childNodes[0].childNodes[2];
+
+    assert.is(firstTaskOkTD.innerText, "OK");
 
     assert.is(numberOfOpenTasks.innerText, "1");
     assert.is(numberOfTasks.innerText, "1");
+
+    // when I click "ok", the task should be marked "Done" and the number of open tasks must decrease
+
+    firstTaskOkTD.click();
+
+    assert.is(todoContainer.childNodes.length, 1);  // do not accidentally delete
+    assert.is(firstTaskOkTD.innerText, "Done");     // new label
+    assert.is(numberOfOpenTasks.innerText, "0");
+    assert.is(numberOfTasks.innerText, "1");        // do not accidentally change
 
 });
