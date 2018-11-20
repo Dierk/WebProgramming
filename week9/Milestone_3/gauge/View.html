@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View</title>
+    <script src="gauge.js"></script>
+
+
+    <style>
+        p {
+            padding: 0 10em 0 4em;
+        }
+        canvas {
+            margin: 0.1em 1em 0 1em;
+            --section-divider:   0.6;
+        }
+
+        .classic {
+            --section-one-color: red;
+            --section-two-color: green;
+            --progress-color:    rgba(116,160,194,0.5);
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1>Custom Component: Progress Indicator Gauge (simplified use)</h1>
+
+<canvas id="progressView" width="200" height="200" class="classic" draggable="false"></canvas>
+
+
+<p>
+    Progress:<br>
+    <input type="range" id="range"     value="55">    <br>
+</p>
+
+<script>
+    // only to avoid duplication
+    const repaint = () => {
+        progressPie(progressView, range.value / 100);
+    };
+
+    // just updating with new values
+    range.oninput = repaint;
+
+    repaint();                                  // initial display of the component
+
+</script>
+
+</body>
+</html>

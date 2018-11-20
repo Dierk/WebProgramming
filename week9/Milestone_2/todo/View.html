@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos</title>
+    <style>
+        body {
+            background: burlywood;
+            font-family: "Helvetica Neue", "sans-serif";
+        }
+        div {
+            padding-left: 1em;
+        }
+    </style>
+</head>
+<body >
+
+<button onclick="newTodo()">Add Todo</button>
+
+<table>
+    <thead></thead>
+    <tbody id="todoContainer">
+
+    </tbody>
+</table>
+
+<div>Number of Tasks: <span id="numberOfTasks">0</span></div>
+<div>Open Tasks: <span id="openTasks">0</span></div>
+
+
+
+<script src="../observable/observable.js"></script>
+<script src="todo.js"></script>
+<script>
+    startTodo(window.todoContainer, window.numberOfTasks, window.openTasks)
+</script>
+
+</body>
+
+</html>
