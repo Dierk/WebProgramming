@@ -11,10 +11,24 @@
         div {
             padding-left: 1em;
         }
+        canvas {
+            margin: 0.1em 1em 0 1em;
+            --section-divider:   1.0;
+        }
+        .classic {
+            --section-one-color: red;
+            --section-two-color: red;
+            --progress-color:    green;
+        }
+        .left {
+            float: left;
+        }
+
     </style>
 </head>
-<body onload="startTodo(todoContainer, numberOfTasks, openTasks)">
+<body onload="startTodo(todoContainer, numberOfTasks, openTasks, progressView)">
 
+<div class="left">
 <button onclick="newTodo()">Add Todo</button>
 
 <table>
@@ -26,9 +40,12 @@
 
 <div>Number of Tasks: <span id="numberOfTasks">0</span></div>
 <div>Open Tasks: <span id="openTasks">0</span></div>
-
-
+</div>
+<div class="left">
+    <canvas id="progressView" width="200" height="200" class="classic" draggable="false"></canvas>
+</div>
 <script src="../observable/observable.js"></script>
+<script src="../gauge/gauge.js"></script>
 <script src="todo.js"></script>
 
 </body>

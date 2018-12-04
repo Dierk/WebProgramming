@@ -11,8 +11,16 @@ todo.test("crud", assert => {
     numberOfTasks.innerText = '0';
     openTasks = document.createElement("span");
     openTasks.innerText = '0';
+    canvas = document.createElement("canvas");
+    canvas.style = "" +
+                   "--section-divider:   0.6;" +
+                   "--section-one-color: red;" +
+                   "--section-two-color: green;" +
+                   "--progress-color:    black;";
 
-    startTodo(todoContainer, numberOfTasks, openTasks);
+    document.body.appendChild(canvas);
+
+    startTodo(todoContainer, numberOfTasks, openTasks, canvas);
 
     assert.is(todoContainer.children.length, 0);
     assert.is(numberOfTasks.innerText, '0');
@@ -54,5 +62,7 @@ todo.test("crud", assert => {
     assert.is(todoContainer.children.length, 0);
     assert.is(numberOfTasks.innerText, '0');
     assert.is(openTasks.innerText, '0');
+
+    document.body.removeChild(canvas);
 
 });

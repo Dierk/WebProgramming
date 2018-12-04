@@ -1,4 +1,5 @@
 // requires ../observable/observable.js
+// requires ../gauge/gauge.js
 
 const Todo = () => {
     const textAttr = Observable("text");
@@ -12,17 +13,22 @@ const Todo = () => {
 
 const model = ObservableList( [] );
 
-function startTodo(todoContainer, numberOfTasks, openTasks) {
+function startTodo(todoContainer, numberOfTasks, openTasks, progressView) {
     // attach list-wide listeners
     const statsUpdate = _ => {
-        numberOfTasks.innerText = ""+ model.count();
-        openTasks.innerText     = ""+ model.countIf( todo => ! todo.getDone());
+        const numTotal = model.count();
+        const numOpen  = model.countIf( todo => ! todo.getDone());
+        numberOfTasks.innerText = ""+ numTotal;
+        openTasks.innerText     = ""+ numOpen;
+        progressPie(progressView, 1 - numOpen / numTotal);
     };
     model.onAdd( statsUpdate );
     model.onDel( statsUpdate );
 
     model.onAdd( todo => newRow(todoContainer, todo) );
     model.onAdd( todo => todo.doneAttr().onChange( statsUpdate) );
+
+    progressPie(progressView, 0.0);
 }
 
 function newRow(todoContainer, todo) {
