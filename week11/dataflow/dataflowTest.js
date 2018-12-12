@@ -21,6 +21,7 @@ test("dataflow-scheduler", assert => {
         assert.is(result[0], 1); // sequence is still ensured
         assert.is(result[1], 2);
         assert.is(result[2], 3);
+        ok();
     });
 
     assert.true(true); // any assertion error will appear in the console, not in the report

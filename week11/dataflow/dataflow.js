@@ -1,24 +1,23 @@
 
 // todo: make bad/naive implementation correct
 
-// execute asynchronous tasks in strict sequence, aka "reactive stream", "flux architecture"
+// execute asynchronous tasks in strict sequence, aka "actor", used in the "flux architecture"
 const Scheduler = () => {
-
+    let inProcess = false;
     const tasks = [];
     function process() {
-
+        if (inProcess) return;
         if (tasks.length === 0) return;
 
         const task = tasks.pop();
 
-        let wasOk = false;
-        const ok = () => wasOk = true;
-
-        task(ok);
-
-        if (wasOk) {
-            process()
-        }
+        inProcess = true;
+        new Promise( ok => {
+            task(ok);
+        } ).then ( _ => {
+            inProcess = false;
+            process();
+        }) ;
 
     }
     function add(task) {
@@ -32,16 +31,14 @@ const Scheduler = () => {
 };
 
 
-// a dataflow abtstraction that is not based on concurrency but on laziness
+// a dataflow abstraction that is not based on concurrency but on laziness
 
 const DataFlowVariable = howto => {
-
+    let value = undefined;
     return () => {
-        // todo: how do we cache the value ???
-
-        // todo: how do we set the value ???
-
-        // return value;
+        if (value !== undefined) return value;
+        value = howto();
+        return value;
     }
 };
 
