@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> All Tests </title>
+    <script src="util/test.js"></script>
+</head>
+<body>
+
+<h1>All Tests in HtmlJs</h1>
+
+
+<pre id="out"></pre>
+
+
+<script>
+
+    const testNames = [
+        'observable',
+        'church',
+        'concept',
+        'lazy',
+        'snake',
+        'plotter',
+        'dataflow',
+        'excel',
+        'object',
+        'oopsie',
+        'inheritance',
+        'util',
+        'todo',
+        'gauge',
+    ];
+
+    testNames.forEach(testName => {
+        document.write(`<script src="${testName}/${testName}.js"></s` + 'cript>'); // dirty trick of the day
+        document.write(`<script src="${testName}/${testName}Test.js"></s` + 'cript>');
+    });
+
+
+</script>
+
+<!--all asynchronous tests bundled and executed in a synchronous fashion-->
+<script src="./allModuleTestsBundle.js"></script>
+<hr/>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> All Tests </title>
+    <script src="util/test.js"></script>
+</head>
+<body>
+
+<h1>All Module Tests in HtmlJs</h1>
+
+<p>Module tests do not work from file. They must be loaded via http.</p>
+<p>Consider <tt>npx http-server -c-1 </tt> (no caching).</p>
+
+<pre id="out"></pre>
+
+<!--For FF compatibility, we have to put this in an extra file and load async-->
+
+<script src="allModuleTests.js" type="module"></script>
+
+</body>
+</html>
