@@ -1,9 +1,10 @@
-// requires util.js
+import "./times.js" // we import no symbols as they are set on the respective prototypes
+import { Suite } from "../test/test.js"
 
-const util = Suite("util");
+const util = Suite("util-times");
 
 // extending the prototype of many objects
-util.test("times-num", assert => {
+util.add("num", assert => {
 
     const collect = [];
 
@@ -15,7 +16,7 @@ util.test("times-num", assert => {
 
 });
 
-util.test("times-str", assert => {
+util.add("str", assert => {
 
     const collect = [];
 
@@ -26,3 +27,5 @@ util.test("times-str", assert => {
     assert.is(collect[9], 9);
 
 });
+
+util.run();

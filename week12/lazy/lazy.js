@@ -1,7 +1,8 @@
 // functions for a lazily generated data structure (iterator/stream)
 
+export { STOP, iterate, take, cons, drop, dropWhile, each, takeWhile, toArray, toIterable }
 
-const STOP = {}; // todo think of a better solution.
+const STOP = {}; // todo think of a better solution. (use a maybe or call back only when value is available)
 
 // generalized iteration a la "revenge of the nerds", Paul Graham
 const iterate = f => value =>

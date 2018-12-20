@@ -1,4 +1,8 @@
-// depends on church.js
+
+export {snake, direction, north, east, south, west, pairEq, changeDirection, clockwise, countercw, nextBoard, start, food, setFood }
+export { pair } from "../church/church.js"
+
+import { pair, fst, snd, either, maybe, Nothing, Just, Left, Right } from "../church/church.js"
 
 const north = pair ( 0) (-1);
 const east  = pair ( 1) ( 0);
@@ -10,13 +14,16 @@ let direction = north;
 const clockwise = [north, east, south, west, north];
 const countercw = [north, west, south, east, north];
 
-let snake = [
+const snake = [
     pair (10) (5),
     pair (10) (6),
     pair (10) (7),
     pair (10) (8),
 ];
+
 let food = pair(15)(15);
+
+const setFood = x => y => food = pair(x)(y);
 
 const pairEq   = a => b => fst(a) === fst(b) && snd(a) === snd(b);
 
@@ -69,7 +76,7 @@ function nextBoard() {
     const head = pairMap (inBounds (max)) (pairPlus (oldHead) (direction));
 
     if (pairEq(food)(head)) {  // have we found any food?
-        food = pair (pick()) (pick());
+        setFood (pick()) (pick());
     } else {
         snake.pop(); // no food found => no growth despite new head => remove last element
     }

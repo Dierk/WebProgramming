@@ -7,6 +7,9 @@
 // Forgetting to "instantiate" with "new" will cause all kinds of
 // trouble.
 
+
+import { Suite } from "../test/test.js"
+
 ( () => {
     let ok = [];
 

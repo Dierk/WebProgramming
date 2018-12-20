@@ -1,4 +1,4 @@
-// https://stackoverflow.com/questions/10993824/do-something-n-times-declarative-syntax
+// times utility
 
 const timesFunction = function(callback) {
   if( isNaN(parseInt(Number(this.valueOf()))) ) {

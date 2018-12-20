@@ -1,6 +1,9 @@
 // requires inheritance.js
 // requires /util/test.js
 
+
+import { Suite } from "../test/test.js"
+
 const suite = Suite("inheritance");
     
 // ES6 inheritance scheme

@@ -1,4 +1,6 @@
-// requires dataflow.js
+
+import { DataFlowVariable, Scheduler } from "./dataflow.js"
+import { Suite } from "../test/test.js"
 
 const dataflow = Suite("dataflow");
 
@@ -76,3 +78,5 @@ dataflow.test("scheduler", assert => {
     assert.true(true); // any assertion error will appear in the console, not in the report
 
 });
+
+dataflow.run();

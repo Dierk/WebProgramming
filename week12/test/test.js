@@ -1,7 +1,15 @@
-"use strict";
+// The test "framework", exports the Suite function plus a total of how many assertions have been tested
+
+export { Suite, total }
+
+import { padLeft, padRight}   from "../util/strings.js"; // for formatting the report
+import { Tuple }              from "../church/rock.js";
+import { id }                 from "../church/church.js";
+
+let total = 0;
 
 function Assert() {
-    const results = [];
+    const results = []; // [Bool], true if test passed, false otherwise
     return {
         results: results,
         true: (testResult) => {
@@ -18,6 +26,8 @@ function Assert() {
     }
 }
 
+const [Test, name, logic] = Tuple(2); // data type to capture test to-be-run
+
 function test(name, callback) {
     const assert = Assert();
     callback(assert);
@@ -25,12 +35,19 @@ function test(name, callback) {
 }
 
 function Suite(suiteName) {
-    const tests = [];
+    const tests = []; // [Test]
     const suite = {
         test: (testName, callback) => test(suiteName + "-"+ testName, callback),
-        add:  (testName, callback) => tests.push([testName, callback]),
+        add:  (testName, callback) => tests.push(Test (testName) (callback)),
         run:  () => {
-            tests.forEach( ([testName, callback]) => suite.test(testName, callback) )
+            const suiteAssert = Assert();
+            tests.forEach( test => test(logic) (suiteAssert) );
+            total += suiteAssert.results.length;
+            if (suiteAssert.results.every( id )) { // whole suite was ok, report whole suite
+                report("suite " + suiteName, suiteAssert.results)
+            } else { // some test in suite failed, rerun tests for better error indication
+                tests.forEach( test => suite.test( test(name), test(logic) ) )
+            }
         }
     };
     return suite;
@@ -64,19 +81,3 @@ function bar(extend) {
     write("+" + "-".repeat(extend) + "+");
 }
 
-// padRight :: String, Int -> String
-function padRight(str, extend) {
-    return "" + str + fill(str, extend);
-}
-
-function padLeft(str, extend) {
-    return "" + fill(str, extend) + str;
-}
-
-function fill(str, extend) {
-    const len = str.toString().length; // in case str is not a string
-    if (len > extend) {
-        return str;
-    }
-    return " ".repeat(extend - len);
-}

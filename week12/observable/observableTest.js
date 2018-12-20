@@ -1,7 +1,10 @@
 
+import {Observable, ObservableList} from "./observable.js"
+import { Suite } from "../test/test.js"
+
 const observable = Suite("observable");
 
-observable.test("value", assert => {
+observable.add("value", assert => {
 
     const obs = Observable("");
 
@@ -41,7 +44,7 @@ observable.test("value", assert => {
 
 });
 
-observable.test("list", assert => {
+observable.add("list", assert => {
     const raw  = [];
     const list = ObservableList( raw ); // decorator pattern
 
@@ -61,3 +64,5 @@ observable.test("list", assert => {
     assert.is(raw.length, 0);
 
 });
+
+observable.run();

@@ -1,6 +1,9 @@
 // requires ../util/test.js
 // requires excel.js
 
+
+import { Suite } from "../test/test.js"
+
 ( () => {
     let ok = [];
 

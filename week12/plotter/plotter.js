@@ -1,4 +1,6 @@
 
+export { start, normalizeX, normalizeY }
+
 const minX =  0;
 const maxX =  6;
 const minY = -1;
@@ -18,8 +20,8 @@ function display(context, f) {
     context.fillStyle = "papayawhip";
     context.fillRect(0, 0, canvas.width, canvas.height);
     // draw the function plot
-    normx = normalizeX(canvas.width);
-    normy = normalizeY(canvas.height);
+    const normx = normalizeX(canvas.width);
+    const normy = normalizeY(canvas.height);
 
     context.fillStyle = "black";
     context.beginPath();

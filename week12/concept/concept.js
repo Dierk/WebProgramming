@@ -1,6 +1,9 @@
 
 // usual programming concepts
 
+export { clock_neutral, clock_op, clock, mod, mfold, foldMap, mfoldMap, a2aMonoid }
+
+
 // monoid
 
 // integers are a monoid with plus and 0

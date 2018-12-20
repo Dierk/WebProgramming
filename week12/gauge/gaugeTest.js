@@ -1,6 +1,9 @@
 // requires /util/test.js
 // requires gauge.js
 
+
+import { Suite } from "../test/test.js"
+
 const gauge = Suite("gauge");
 
 gauge.test("no-exception", assert => {

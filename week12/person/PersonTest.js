@@ -1,11 +1,10 @@
-// todo: the line below should be uncommented
-// import { Suite, test } from '../util/test.js'
 
 import { Person, firstname, setLastname, lastname, equals, toObj, toPerson, toString } from './Person.js'
+import { Suite } from "../test/test.js"
 
 const person = Suite("person");
 
-person.test("use", assert => {
+person.add("use", assert => {
 
     const dierk = Person ("Dierk") ('König');
 
@@ -18,7 +17,9 @@ person.test("use", assert => {
     assert.true(   equals (dierk) (dierk)  );
     assert.true( ! equals (dierk) (gently) );
 
-    assert.true( equals (dierk) (toPerson(toObj(dierk))) )
+    assert.true( equals (dierk) (toPerson(toObj(dierk))) );
     assert.is( toString(dierk), 'Person Dierk König')
 
 });
+
+person.run();

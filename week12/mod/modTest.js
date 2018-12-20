@@ -1,5 +1,6 @@
 
 import { pi, a, b, setA, setB } from './mod.js'
+import { Suite } from "../test/test.js"
 
 export const modSuite = Suite('mod');
 
