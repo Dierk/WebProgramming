@@ -13,9 +13,9 @@
         }
     </style>
 </head>
-<body onload="startTodo(todoContainer, numberOfTasks, openTasks)">
+<body>
 
-<button onclick="newTodo()">  Add Todo  </button>
+<button onclick="newTodo()" id="add">  Add Todo  </button>
 <button onclick="fortune()" id="fortune">Fortune Todo</button>
 
 <table>
@@ -29,10 +29,13 @@
 <div>Open Tasks: <span id="openTasks">0</span></div>
 
 
-<script src="../observable/observable.js"></script>
-<script src="../dataflow/dataflow.js"></script>
-<script src="fortuneService.js"></script>
-<script src="todo.js"></script>
+<script>
+    import("./todo.js").then( todo => {
+        newTodo = todo.newTodo;     // publish name to global (Window) namespace for binding
+        fortune = todo.fortune;     // publish name to global (Window) namespace for binding
+        todo.startTodo(todoContainer, numberOfTasks, openTasks);
+    });
+</script>
 
 </body>
 

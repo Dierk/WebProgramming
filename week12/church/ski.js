@@ -2,7 +2,7 @@
 
 export {I, K, M, C, KI, B, BB, S, Z, Th, V}
 
-import {id, beta, konst, flip, kite, cmp, cmp2, F, T } from "./church.js"
+import {id, beta, konst, flip, kite, cmp, cmp2, F, T, pair } from "./church.js"
 
 const I = id ;          // Identity I, for all a: id(a) == a
 

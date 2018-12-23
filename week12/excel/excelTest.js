@@ -1,12 +1,10 @@
-// requires ../util/test.js
-// requires excel.js
 
-
+import { startExcel, refresh, numValue } from './excel.js'
 import { Suite } from "../test/test.js"
 
-( () => {
-    let ok = [];
+const excelSuite = Suite("excel");
 
+excelSuite.add("normalize", assert => {
 
     let tbody = document.createElement("TBODY");
     tbody.setAttribute("ID","dataContainer");
@@ -15,9 +13,10 @@ import { Suite } from "../test/test.js"
 
     startExcel();
     refresh();
-    ok.push(n(C3) === 6);
+    assert.is(numValue('C3'), 6);
 
     body.removeChild(tbody);
 
-    report("excel", ok);
-}) ();
+});
+
+excelSuite.run();

@@ -1,5 +1,7 @@
 // Using only function scope. No "class", "new", or "this".
 
+export { progressPie, valueFromEvent, registerForMouseAndTouch }
+
 function progressPie(canvas, progressFraction, showThumb) {
     const centerx   = canvas.width  / 2;
     const centery   = canvas.height / 2;
@@ -84,12 +86,7 @@ const valueFromEvent = (progressView, evt) => {
     return (val > 1) ? val -1 : val;
 };
 
-const registerForMouseAndTouch = progressView => {
-
-    const track = evt => {
-        range.value = valueFromEvent(progressView, evt) * 100;// normalize for view data
-        repaint();
-    };
+const registerForMouseAndTouch = progressView => track => {
 
     const consume = evt => {                    // prevent click, focus, drag, and selection events
         evt.preventDefault();

@@ -1,13 +1,12 @@
 // requires inheritance.js
 // requires /util/test.js
 
-
 import { Suite } from "../test/test.js"
 
-const suite = Suite("inheritance");
+const inheritance = Suite("inheritance");
     
 // ES6 inheritance scheme
-suite.test("ES6", assert => {
+inheritance.add("ES6", assert => {
 
     class Person {
         constructor(name) {
@@ -50,7 +49,7 @@ suite.test("ES6", assert => {
 
 
 // composition by delegation, here: decorator pattern
-suite.test("delegate", assert => {
+inheritance.add("delegate", assert => {
 
     function Prof(worker) {
         const worklog  = [];
@@ -80,7 +79,7 @@ suite.test("delegate", assert => {
 });
 
 // setting the prototype of an object dynamically
-suite.test("setProto", assert => {
+inheritance.add("setProto", assert => {
 
     function Prof(worker) {
         const worklog  = [];
@@ -97,4 +96,6 @@ suite.test("setProto", assert => {
     assert.true(wl instanceof Prof)
 
 });
+
+inheritance.run();
 

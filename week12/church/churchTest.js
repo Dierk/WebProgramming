@@ -16,6 +16,7 @@ import {I, K, M, C, KI, B, BB, S, Z, Th, V} from "./ski.js";
 
 const churchSuite = Suite("church");
 
+
 churchSuite.add("identity", assert => {
 
         // identity
@@ -59,13 +60,14 @@ churchSuite.add("mockingbird", assert => {
         assert.is( M(beta)(inc)(0) , beta(inc)(0)); //extensional equality
 
 
-        try {
-            assert.is( M(M) , M );  // recursion until s/o
-            assert.true( false );       // must not reach here
-
-        } catch (e) {
-            assert.true(true) // maximum call size error expected
-        }
+        // when loaded as an async module, this code crashes Safari and does not produce a proper s/o error
+        // You can uncomment to test with a synchronous bundle.
+        // try {
+        //     assert.is( M(M) , M );  // recursion until s/o
+        //     assert.true( false );   // must not reach here
+        // } catch (e) {
+        //     assert.true(true) // maximum call size error expected
+        // }
     }
 );
 
@@ -347,5 +349,6 @@ churchSuite.add("curry", assert => {
 
     }
 );
+
 
 churchSuite.run(); // go for the lazy eval as this will improve reporting later

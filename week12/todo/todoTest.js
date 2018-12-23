@@ -1,15 +1,16 @@
-// requires todo.js
-// requires /util/test.js
+
+import { startTodo, newTodo }   from "./todo.js";
+import { Suite }                from "../test/test.js";
 
 const todo = Suite("todo");
 
-todo.test("crud", assert => {
+todo.add("crud", assert => {
 
     // setup
-    todoContainer = document.createElement("tbody");
-    numberOfTasks = document.createElement("span");
+    const todoContainer = document.createElement("tbody");
+    const numberOfTasks = document.createElement("span");
     numberOfTasks.innerText = '0';
-    openTasks = document.createElement("span");
+    const openTasks = document.createElement("span");
     openTasks.innerText = '0';
 
     startTodo(todoContainer, numberOfTasks, openTasks);
@@ -56,3 +57,5 @@ todo.test("crud", assert => {
     assert.is(openTasks.innerText, '0');
 
 });
+
+todo.run();

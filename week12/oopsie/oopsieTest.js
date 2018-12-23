@@ -1,20 +1,19 @@
-// requires ../util/test.js
-// requires oopsie.js
 
+import { Player } from "./oopsie.js"
+import { Suite  } from "../test/test.js"
 
-import { Suite } from "../test/test.js"
+const oopsie = Suite("oopsie");
 
-( () => {
-    let ok = [];
+oopsie.add("indexes", assert => {
 
     const player1 = Player("Dierk");
     const player2 = Player("Florian");
 
     function assertIndexes(a,b,c,d) {
-        ok.push(player1.getFallbackIndex() === a);
-        ok.push(player1.getProgressIndex() === b);
-        ok.push(player2.getFallbackIndex() === c);
-        ok.push(player2.getProgressIndex() === d);
+        assert.is(player1.getFallbackIndex(), a);
+        assert.is(player1.getProgressIndex(), b);
+        assert.is(player2.getFallbackIndex(), c);
+        assert.is(player2.getProgressIndex(), d);
     }
 
     assertIndexes(0,0,0,0); // start positions
@@ -36,5 +35,6 @@ import { Suite } from "../test/test.js"
     player1.fallback();
     assertIndexes(1,1,4,4);
 
-    report("oopsie-indexes", ok);
-}) ();
+});
+
+oopsie.run();

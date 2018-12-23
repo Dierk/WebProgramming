@@ -1,8 +1,11 @@
 
+export { startExcel, refresh, numValue }
+import { DataFlowVariable } from "../dataflow/dataflow.js";
+
 const Formulae =  {
-    A1: 'n(B3) - n(B2)', B1: '1',              C1: 'n(A1) + n(B1)',
-    A2: '2',             B2: '2',              C2: 'n(A2) + n(B2)',
-    A3: 'n(A1) + n(A2)', B3: 'n(B1) + n(B2)',  C3: 'n(C1) + n(C2)',
+    A1: '$(B3) - $(B2)', B1: '1',              C1: '$(A1) + $(B1)',
+    A2: '2',             B2: '2',              C2: '$(A2) + $(B2)',
+    A3: '$(A1) + $(A2)', B3: '$(B1) + $(B2)',  C3: '$(C1) + $(C2)',
 };
 
 const DFVs = {}; // lazy cache for the backing data flow variables
@@ -45,20 +48,22 @@ function refresh() {
         rows.forEach( row => {
             let cellid  = "" + col + row;
             let input   = document.getElementById(cellid);
-            input.value = n(input);
+            input.value = numValue(cellid);
         });
     });
 }
 
+// get the numerical value of an input element's value attribute
+const numValue = cellID => DFVs[cellID]();
+
 function df(input) {
     return DataFlowVariable ( () => {
-        // uncomment to inspect which DFVs are evaluated when
-        // console.log("evaluating: cell " + input.id + " has value " + input.value +", formula " + Formulae[input.id]);
-        return Number( eval(Formulae[input.id]))
+        const formula = Formulae[input.id];
+        const code = formula.replace(/\$\((.*?)\)/g, 'numValue("$1")'); // make '$' in the formula be the numValue function (mini-DSL)
+        return Number( eval(code))
     } ) ;
 }
 
-// get the numerical value of an input element's value attribute
-function n(input) {
-    return DFVs[input.id]();
-}
+// Note: module bundlers do not like the eval() method since they might rename symbols on the fly (e.g. 'n' to 'n$1' ) and
+// cannot foresee how dynamically evaluated code might rely on the original name.
+// Hence, we introduce a mini-dsl where '$' is a replacement for the 'numValue' function.

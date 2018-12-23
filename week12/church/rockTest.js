@@ -1,5 +1,5 @@
 import { Suite } from "../test/test.js"
-import { Tuple, Pair, fst, snd } from "./rock";
+import { Tuple, Pair, fst, snd } from "./rock.js";
 
 const rock = Suite("rock");
 

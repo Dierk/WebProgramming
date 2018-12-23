@@ -2,8 +2,6 @@
 <html>
 <head>
     <title>View</title>
-    <script src="gauge.js"></script>
-
 
     <style>
         p {
@@ -88,52 +86,58 @@
 </p>
 
 <script>
-    // only to avoid duplication
-    const repaint = () => {
-        progressPie(progressView, range.value / 100, thumb.checked);
-    };
 
-    // modifying the properties through a style class
-    colors.onchange = evt => {
-        progressView.className = colors.value;
-        repaint();
-    };
+    import('./gauge.js').then( gauge => {
 
-    // just updating with new values
-    range.oninput = repaint;
-
-    // updating by setting a computed style
-    threshold.oninput = evt => {
-        progressView.style.setProperty("--section-divider", threshold.value / 100);
-        repaint();
-    };
-
-    // interacting with the canvas is interacting with the component
-    size.oninput = evt => {
-        progressView.width  = 200 + 4 * size.value;
-        progressView.height = progressView.width;
-        repaint();
-    };
-
-    thumb.onclick = repaint;
-    thumb.oninput = repaint; // when touch
-
-    //animate (gets nicer when using observables)
-    animate.onclick = evt => {
-        const update = value => {
-            range.value = value;
-            repaint();
-            if (value <= 100) {
-                setTimeout( () => update(value + 1), 10)
-            }
+        // only to avoid duplication
+        const repaint = () => {
+            gauge.progressPie(progressView, range.value / 100, thumb.checked);
         };
-        update(0)
-    };
 
-    registerForMouseAndTouch(progressView);
+        // modifying the properties through a style class
+        colors.onchange = evt => {
+            progressView.className = colors.value;
+            repaint();
+        };
 
-    repaint();                                  // initial display of the component
+        // just updating with new values
+        range.oninput = repaint;
 
+        // updating by setting a computed style
+        threshold.oninput = evt => {
+            progressView.style.setProperty("--section-divider", threshold.value / 100);
+            repaint();
+        };
+
+        // interacting with the canvas is interacting with the component
+        size.oninput = evt => {
+            progressView.width = 200 + 4 * size.value;
+            progressView.height = progressView.width;
+            repaint();
+        };
+
+        thumb.onclick = repaint;
+        thumb.oninput = repaint; // when touch
+
+        //animate (gets nicer when using observables)
+        animate.onclick = evt => {
+            const update = value => {
+                range.value = value;
+                repaint();
+                if (value <= 100) {
+                    setTimeout(() => update(value + 1), 10)
+                }
+            };
+            update(0)
+        };
+
+        gauge.registerForMouseAndTouch(progressView)( evt => {  // what to do on mouse and touch events
+            range.value = gauge.valueFromEvent(progressView, evt) * 100;// normalize for view data
+            repaint();
+        });
+
+        repaint();                                  // initial display of the component
+    });
 </script>
 
 </body>

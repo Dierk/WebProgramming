@@ -4,7 +4,7 @@ import { Suite } from "../test/test.js"
 
 const dataflow = Suite("dataflow");
 
-dataflow.test("value", assert => {
+dataflow.add("value", assert => {
 
     const z = DataFlowVariable(() => x() + y());    // z depends on x and y, which are set later...
     const x = DataFlowVariable(() => y());         // x depends on y, which is set later...
@@ -16,7 +16,7 @@ dataflow.test("value", assert => {
 
 });
 
-dataflow.test("cache", assert => { // value must be set at most once
+dataflow.add("cache", assert => { // value must be set at most once
 
     let counter = 0;
     const x = DataFlowVariable(() => {
@@ -33,7 +33,7 @@ dataflow.test("cache", assert => { // value must be set at most once
 });
 
 
-dataflow.test("async", assert => { // promise must be set at most once
+dataflow.add("async", assert => { // promise must be set at most once
 
     let counter = 0;
 
@@ -52,7 +52,7 @@ dataflow.test("async", assert => { // promise must be set at most once
 
 
 
-dataflow.test("scheduler", assert => {
+dataflow.add("scheduler", assert => {
 
     const result = [];
 

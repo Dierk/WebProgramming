@@ -1,5 +1,7 @@
 // stand-in for an asynchronous service
 
+export { fortuneService }
+
 const fortunes = [
     "Do the WebPr Homework",
     "Care for the JavaScript Toolbox",

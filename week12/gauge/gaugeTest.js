@@ -1,12 +1,12 @@
 // requires /util/test.js
 // requires gauge.js
 
-
+import { progressPie, valueFromEvent } from './gauge.js'
 import { Suite } from "../test/test.js"
 
 const gauge = Suite("gauge");
 
-gauge.test("no-exception", assert => {
+gauge.add("no-exception", assert => {
 
     const canvas = document.createElement("canvas");
 
@@ -28,7 +28,7 @@ gauge.test("no-exception", assert => {
     document.body.removeChild(canvas);
 });
 
-gauge.test("evt-value", assert => {
+gauge.add("evt-value", assert => {
 
     const progressView = {width: 200, height: 200};
 
@@ -38,3 +38,5 @@ gauge.test("evt-value", assert => {
     assert.is( valueFromEvent( progressView, {type: "", offsetX: 100, offsetY:200}), 0.5);
     assert.is( valueFromEvent( progressView, {type: "", offsetX:   0, offsetY:  0}), 7/8);
 });
+
+gauge.run();

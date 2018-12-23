@@ -1,5 +1,7 @@
 // "hand-made" object abstraction
 
+export { Player }
+
 const Player = (name) => {   // note that name is immutable!
     let fallbackIndex = 0;   // local function scope is safe
     let progressIndex = 0;
@@ -51,4 +53,4 @@ function display() {
     progressfield.setAttribute("CLASS", "field progress");
 }
 
-player = Player("One");
+let player = Player("One");

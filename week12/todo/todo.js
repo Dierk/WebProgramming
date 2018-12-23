@@ -1,6 +1,9 @@
-// requires ../observable/observable.js
-// requires ../dataflow/dataflow.js
-// requires fortuneService.js
+
+export { startTodo, newTodo, fortune }
+
+import { fortuneService }               from "./fortuneService.js";
+import { Observable, ObservableList}    from "../observable/observable.js";
+import { Scheduler}                     from "../dataflow/dataflow.js";
 
 const Todo = () => {
     const textAttr = Observable("todo");
