@@ -220,7 +220,7 @@ crazySuite.add("other", assert => {
     assert.is( +[],          0);
     assert.is( 2 == [2],     true);
     assert.is( [] + {},      "[object Object]");
-    // assert.is( {} + [],      0); // ????
+    assert.is( eval("{} + []"), 0); // ????
 
 });
 
