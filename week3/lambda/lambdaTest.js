@@ -36,15 +36,29 @@ document.writeln( or(T)(T) === T );
 
 // beq
 
-// pair
+// Pair
 
-const dierk = pair("Dierk")("König"); // immutable
+const dierk = Pair("Dierk")("König"); // immutable
 document.writeln( dierk(firstname) === "Dierk");
 document.writeln( dierk(lastname)  === "König");
 
+const tdierk = Triple("Dierk")("König")(50); // immutable
+document.writeln( tdierk(tfirstname) === "Dierk");
+document.writeln( tdierk(tlastname)  === "König");
+document.writeln( tdierk(tage)       === 50);
 
-// pair equal
+
+// Pair equal
 
 // either
+
+const safeDiv = num => divisor =>
+    divisor === 0
+    ? Left("schlecht!")
+    : Right(num / divisor);
+
+either( safeDiv(1)(0)  )
+      (console.log)
+      (console.error);
 
 // maybe
