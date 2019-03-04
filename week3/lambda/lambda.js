@@ -4,6 +4,24 @@ const konst = x => y => x;
 
 
 // derived
-const I  = id;
-const K  = konst;
-const KI = konst (id);
+const fst  = konst;
+const snd  = konst(id);
+
+const T = fst;
+const F = snd;
+
+const and = p => q => p(q)(p);
+
+const M   = f => f(f);
+const or  = M;
+
+const pair = x => y => (selector => selector(x)(y));
+const firstname = fst;
+const lastname  = snd;
+
+
+
+
+
+
+
