@@ -47,6 +47,19 @@ document.writeln( tdierk(tfirstname) === "Dierk");
 document.writeln( tdierk(tlastname)  === "König");
 document.writeln( tdierk(tage)       === 50);
 
+// tuple
+const [Person, fn, ln, ag] = Tuple(3);
+const person = Person("Dierk")("König")(50);
+document.writeln( person(fn) === "Dierk");
+document.writeln( person(ln) === "König");
+document.writeln( person(ag) === 50);
+
+// composed Tuple
+
+const [Team, lead, deputy] = Tuple(2);
+const team = Team (person) (Person("Roger")("Federer")(35));
+document.writeln( team(lead)()(fn)   === "Dierk"); // composite descent needs extra () !
+document.writeln( team(deputy)()(ln) === "Federer");
 
 // Pair equal
 
@@ -60,5 +73,24 @@ const safeDiv = num => divisor =>
 either( safeDiv(1)(0)  )
       (console.log)
       (console.error);
+
+
+const [Cash, CreditCard, Invoice, PayPal, pay] = EitherOf(4);
+const cash = Cash ();
+const card = CreditCard ("0000-1111-2222-3333");
+const invo = Invoice    ({name:"Roger", number:"4711"});
+const pal  = PayPal     (person);  // the payload can be a partially applied function, e.g. Tuple ctor
+const doPay = method =>
+    pay (method)
+        ( _       => "paid cash")
+        ( number  => "credit card "+number)
+        ( account => account.name + " " + account.number )
+        ( person  => "pal: " + person(fn) );
+
+document.writeln( doPay(cash) === "paid cash");
+document.writeln( doPay(card) === "credit card 0000-1111-2222-3333");
+document.writeln( doPay(invo) === "Roger 4711");
+document.writeln( doPay(pal ) === "pal: Dierk");
+
 
 // maybe
