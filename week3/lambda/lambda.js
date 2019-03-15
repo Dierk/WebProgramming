@@ -27,7 +27,7 @@ const tage       = x => y => z => z;
 
 const Tuple = n => [
     parmStore (n + 1) ( [] ) (parms => parms.reduce( (accu, it) => accu(it), parms.pop() ) ), // ctor
-    ...Array.from( {length:n}, (it, idx) => iOfN (3) (idx) () )                    // selectors
+    ...Array.from( {length:n}, (it, idx) => iOfN (n) (idx) () )                    // selectors
 ];
 
 const iOfN = n => i => value => // from n curried params, take argument at position i,

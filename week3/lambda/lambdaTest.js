@@ -58,8 +58,8 @@ document.writeln( person(ag) === 50);
 
 const [Team, lead, deputy] = Tuple(2);
 const team = Team (person) (Person("Roger")("Federer")(35));
-document.writeln( team(lead)()(fn)   === "Dierk"); // composite descent needs extra () !
-document.writeln( team(deputy)()(ln) === "Federer");
+document.writeln( team(lead)(fn)   === "Dierk");
+document.writeln( team(deputy)(ln) === "Federer");
 
 // Pair equal
 
