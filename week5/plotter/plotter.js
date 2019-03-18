@@ -11,6 +11,11 @@ function start() {
 
     // todo: how to display?
 
+    userFunction.onchange = evt => display(context, Function('x', 'return ' + userFunction.value) );
+
+    userFunction.onchange(null);
+
+
 }
 
 function display(context, f) {
