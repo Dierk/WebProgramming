@@ -17,3 +17,17 @@
 
     report("util-times", ok);
 }) ();
+
+( () => {
+    let ok = [];
+
+
+
+    const collect = (10).times( n => n+1 );
+
+    ok.push(collect.length === 10);
+    ok.push(collect[0] === 1);
+    ok.push(collect[9] === 10);
+
+    report("util-times", ok);
+}) ();
