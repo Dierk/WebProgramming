@@ -4,12 +4,12 @@
 ( () => {
     let ok = [];
 
-    class Person {
+    class Person { // refactoring Martin Fowler: replace inheritance with delegation
         constructor(name) {
             this.name = name;
             this.worklog = [];
         }
-        mustDo() {
+        mustDo() { // design pattern: template method
             return ""
         }
         work() {
@@ -56,10 +56,10 @@
         }
     }
 
-    const wl = Person( {work: () => ""} );
-    ok.push(wl.worklog.length ===  0);  // initially empty
-    wl.work();
-    ok.push(wl.worklog[0] ===  "");     // superclass impl
+    const manager = Person( {work: () => ""} );
+    ok.push(manager.worklog.length ===  0);  // initially empty
+    manager.work();
+    ok.push(manager.worklog[0] ===  "");     // superclass impl
 
     function Student(name) {
         return {
@@ -87,7 +87,7 @@
             work:    () => worklog.push(worker.work())
         };
 
-        // todo: here?
+        Object.setPrototypeOf(result, Person.prototype);
 
         return result
     }
