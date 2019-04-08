@@ -2,11 +2,32 @@
 
 // find a solution for suite, test, assert
 
+const Assert = () => {
+    const ok = [];
+    const equals = (actual, expected) => {
+        const result = (actual === expected);
+        if (! result) {
+           console.error(`not equal! actual was '${actual}' but expected '${expected}'`);
+        }
+        ok.push(result);
+    };
+    return {
+        getOk: () => ok,
+        equals: equals,
+    }
+}
 
+
+/**
+ * providing a scope and name for a test callback that fills the array
+ * of boolean checks
+ * @param {string} origin
+ * @param {function([boolean]): *} callback
+ */
 const test = (origin, callback) => {
-    const ok = [];      //    das ok anlegen
-    callback(ok);       //    das ok befüllen
-    report(origin, ok); //    report mit name und ok aufrufen
+    const assert = Assert();      //    das ok anlegen
+    callback(assert);       //    das ok befüllen
+    report(origin, assert.getOk()); //    report mit name und ok aufrufen
 };
 
 
