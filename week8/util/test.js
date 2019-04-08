@@ -3,9 +3,19 @@
 // find a solution for suite, test, assert
 
 
+const test = (origin, callback) => {
+    const ok = [];      //    das ok anlegen
+    callback(ok);       //    das ok befüllen
+    report(origin, ok); //    report mit name und ok aufrufen
+};
 
-// test result report
-// report :: String, [Bool] -> DOM ()
+
+/**
+ * report :: String, [Bool] -> DOM ()
+ * Report reports the list of boolean checks
+ * @param {string}      origin: where the reported tests come from
+ * @param { [boolean] } ok:     list of applied checks
+ */
 function report(origin, ok) {
     const extend = 20;
     if ( ok.every( elem => elem) ) {

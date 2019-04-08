@@ -1,8 +1,7 @@
 // requires util.js
 
 // extending the prototype of many objects
-( () => {
-    let ok = [];
+test("util-times1", ok => {
 
     const collect = [];
 
@@ -14,8 +13,7 @@
 
     // if we only had an array-equals ... *sigh*
 
-    report("util-times1", ok);
-}) ();
+}) ;
 
 ( () => {
     let ok = [];
