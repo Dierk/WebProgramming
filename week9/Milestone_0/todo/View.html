@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos</title>
+    <style>
+        body {
+            margin-top:     2em;
+            font-family:    "Helvetica Neue", sans-serif;
+        }
+        main {
+            max-width:  30em;
+            margin:     auto;
+            padding:    2em;
+            box-shadow: 0 4px  8px 0 rgba(0, 0, 0, 0.2),
+                        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        h1 {
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            text-align: center;
+        }
+        .holder {
+            margin: 0 3em 0 3em;
+        }
+        input[type=text] {
+            font-family:    "Comic Sans MS", cursive, sans-serif;
+            font-size:      1.1em;
+            color:          darkblue;
+            border-width:   0 0 1px 0;
+        }
+        input[type=text]:focus {
+            border-color:   orange;
+            outline:        transparent none 0;
+        }
+        #todoContainer {
+            display:        grid;
+            grid-template-columns: auto auto;
+            margin-bottom:  0.5em ;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <h1>Todo List</h1>
+
+    <div class="holder">
+        <button autofocus onclick="addTodo()"> + </button>
+
+        <div class="table" id="todoContainer"></div>
+
+        <div>Tasks: <span id="numberOfTasks">0</span></div>
+        <div>Open:  <span id="openTasks"    >0</span></div>
+    </div>
+</main>
+
+
+<script src="todo.js"></script>
+<script>
+    startTodo(
+        document.getElementById('todoContainer'),
+        document.getElementById('numberOfTasks'),
+        document.getElementById('openTasks'));
+    addTodo();
+</script>
+
+</body>
+
+</html>
