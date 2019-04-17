@@ -51,11 +51,12 @@ const TodoItemsView = (todoController, rootElement) => {
         checkboxElement.onclick = _ => todo.setDone(checkboxElement.checked);
         deleteButton.onclick    = _ => todoController.removeTodo(todo);
 
-        todoController.onTodoRemove( removedTodo => {
+        todoController.onTodoRemove( (removedTodo, removeMe) => {
             if (removedTodo !== todo) return;
             rootElement.removeChild(inputElement);
             rootElement.removeChild(deleteButton);
             rootElement.removeChild(checkboxElement);
+            removeMe();
         } );
 
         rootElement.appendChild(deleteButton);

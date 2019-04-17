@@ -21,6 +21,8 @@ const Observable = value => {
 const ObservableList = list => {
     const addListeners = [];
     const delListeners = [];
+    const remove       = array => index => array.splice(index, 1);
+    const listRemove   = remove(list);
     return {
         onAdd: listener => addListeners.push(listener),
         onDel: listener => delListeners.push(listener),
@@ -30,12 +32,12 @@ const ObservableList = list => {
         },
         del: item => {
             const i = list.indexOf(item);
-            if (i >= 0) { list.splice(i, 1) } // essentially "remove(item)"
-            delListeners.forEach( listener => listener(item));
+            if (i >= 0) { listRemove(i) }
+            const delRemoverAt = index => () => remove(delListeners)(index);
+            // as a 2nd argument to the listener callback, provide a function that removes the listener when called
+            delListeners.forEach( (listener, index) => listener(item, delRemoverAt(index) ));
         },
         count:   ()   => list.length,
         countIf: pred => list.reduce( (sum, item) => pred(item) ? sum + 1 : sum, 0)
     }
 };
-
-// currently missing: a way to unregister listeners -> might lead to memory leak
