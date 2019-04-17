@@ -2,13 +2,13 @@
 
 const TodoController = () => {
 
-    const Todo = () => {
-        const textAttr = Observable("text");           // we current don't expose it as we don't use it elsewhere
+    const Todo = () => {                                // facade
+        const textAttr = Observable("text");            // we current don't expose it as we don't use it elsewhere
         const doneAttr = Observable(false);
         return {
-            getDone: ()   => doneAttr.getValue(),       // veneer method
-            setDone: done => doneAttr.setValue(done),   // veneer method
-            onDoneChanged:   doneAttr.onChange,         // veneer method
+            getDone:       doneAttr.getValue,
+            setDone:       doneAttr.setValue,
+            onDoneChanged: doneAttr.onChange,
         }
     };
 

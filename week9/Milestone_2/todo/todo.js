@@ -8,7 +8,7 @@ const TodoController = () => {
         return {
             getDone: ()   => doneAttr.getValue(),       // veneer method
             setDone: done => doneAttr.setValue(done),   // veneer method
-            onDoneChanged:   doneAttr.onChange,         // veneer method
+            onDoneChanged:  doneAttr.onChange,          // veneer method
         }
     };
 
