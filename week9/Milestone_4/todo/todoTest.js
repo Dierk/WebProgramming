@@ -65,19 +65,3 @@ test("todo-crud", assert => {
     assert.equals(openTasks.innerText, '0');      // changes
 
 });
-
-test("todo-memory-leak", assert => {
-    const todoController = TodoController();
-
-    todoController.onTodoAdd(todo => {
-       todoController.onTodoRemove( (todo, removeMe) => {
-           removeMe(); // un- / comment to see the difference
-       });
-    });
-
-    for (let i=0; i<10000; i++){   // without removeMe:  10000 : 2s, 20000: 8s, 100000: ???s
-        const todo = todoController.addTodo();
-        todoController.removeTodo(todo);
-    }
-
-});
