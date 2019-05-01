@@ -14,7 +14,7 @@ test("todo-crud", assert => {
 
     const todoController = TodoController();
 
-    TodoItemsView(todoController, todoContainer);
+    TodoItemsView(todoController, todoContainer);  // three views that share the same controller and thus model
     TodoTotalView(todoController, numberOfTasks);
     TodoOpenView (todoController, openTasks);
 
@@ -43,8 +43,9 @@ test("todo-crud", assert => {
 
     assert.equals(firstCheckbox.checked, true);
 
-    assert.equals(numberOfTasks.innerText, '2');
-    assert.equals(openTasks.innerText, '1');
+    assert.equals(todoContainer.children.length, 2*elementsPerRow); // did not change
+    assert.equals(numberOfTasks.innerText, '2');                    // did not change
+    assert.equals(openTasks.innerText, '1');                        // changed
 
     // add a test for the deletion of a todo-item
 
@@ -53,6 +54,7 @@ test("todo-crud", assert => {
     const firstDeleteBtn = todoContainer.querySelectorAll("button.delete")[0];
     firstDeleteBtn.click();
 
+    assert.equals(todoContainer.children.length, 1*elementsPerRow);
     assert.equals(numberOfTasks.innerText, '1');
     assert.equals(openTasks.innerText, '1');      // remains!
 
@@ -61,12 +63,13 @@ test("todo-crud", assert => {
     const secondDeleteBtn = todoContainer.querySelectorAll("button.delete")[0];
     secondDeleteBtn.click();
 
+    assert.equals(todoContainer.children.length, 0*elementsPerRow);
     assert.equals(numberOfTasks.innerText, '0');
     assert.equals(openTasks.innerText, '0');      // changes
 
 });
 
-test("todo-memory-leak", assert => {
+test("todo-memory-leak", assert => {  // variant with remove-me callback
     const todoController = TodoController();
 
     todoController.onTodoAdd(todo => {
@@ -79,5 +82,23 @@ test("todo-memory-leak", assert => {
         const todo = todoController.addTodo();
         todoController.removeTodo(todo);
     }
+});
 
+test("todo-memory-leak-2", assert => {  // variant with listener identity
+    const todoController = TodoController();
+
+    todoController.onTodoAdd(todo => {
+
+       const removeListener = todo => {
+           // do the normal stuff, e.g. remove view elements
+           // then remove yourself
+           todoController.removeTodoRemoveListener(removeListener);
+       };
+       todoController.onTodoRemove( removeListener );
+    });
+
+    for (let i=0; i<10000; i++){
+        const todo = todoController.addTodo();
+        todoController.removeTodo(todo);
+    }
 });

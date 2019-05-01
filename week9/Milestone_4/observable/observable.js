@@ -21,9 +21,10 @@ const Observable = value => {
 const ObservableList = list => {
     const addListeners = [];
     const delListeners = [];
-    const remove       = array => index => array.splice(index, 1);
-    const listRemove   = remove(list);
-    const delListenersRemove = remove(delListeners);
+    const removeAt     = array => index => array.splice(index, 1);
+    const removeItem   = array => item  => { const i = array.indexOf(item); if (i>=0) removeAt(array)(i); };
+    const listRemoveItem     = removeItem(list);
+    const delListenersRemove = removeAt(delListeners);
     return {
         onAdd: listener => addListeners.push(listener),
         onDel: listener => delListeners.push(listener),
@@ -32,14 +33,11 @@ const ObservableList = list => {
             addListeners.forEach( listener => listener(item))
         },
         del: item => {
-            const i = list.indexOf(item);
-            if (i >= 0) { listRemove(i) }
-            const indexesToRemove = []; // we cannot remove directly or we would jump over the next
-            const delRemoverAt = index => () => indexesToRemove.push(index);
-            // as a 2nd argument to the listener callback, provide a function that removes the listener when called
-            delListeners.forEach( (listener, index) => listener(item, delRemoverAt(index) ));
-            indexesToRemove.forEach(delListenersRemove);
+            listRemoveItem(item);
+            const safeIterate = [...delListeners]; // shallow copy as we might change listeners array while iterating
+            safeIterate.forEach( (listener, index) => listener(item, () => delListenersRemove(index) ));
         },
+        removeDeleteListener: removeItem(delListeners),
         count:   ()   => list.length,
         countIf: pred => list.reduce( (sum, item) => pred(item) ? sum + 1 : sum, 0)
     }

@@ -27,6 +27,7 @@ const TodoController = () => {
         removeTodo:         todoModel.del,
         onTodoAdd:          todoModel.onAdd,
         onTodoRemove:       todoModel.onDel,
+        removeTodoRemoveListener: todoModel.removeDeleteListener, // only for the test case, not used below
     }
 };
 
