@@ -9,6 +9,9 @@ const TodoController = () => {
             getDone:       doneAttr.getValue,
             setDone:       doneAttr.setValue,
             onDoneChanged: doneAttr.onChange,
+            setText:       textAttr.setValue,
+            getText:       textAttr.getValue,
+            onTextChanged: textAttr.onChange,
         }
     };
 
@@ -20,10 +23,24 @@ const TodoController = () => {
         return newTodo;
     };
 
+    const addFortuneTodo = () => {
+
+        const newTodo = Todo();
+
+        todoModel.add(newTodo);
+        newTodo.setText('...');
+
+        fortuneService( text => {
+            newTodo.setText(text);
+        });
+
+    };
+
     return {
         numberOfTodos:      todoModel.count,
         numberOfopenTasks:  () => todoModel.countIf( todo => ! todo.getDone() ),
         addTodo:            addTodo,
+        addFortuneTodo:     addFortuneTodo,
         removeTodo:         todoModel.del,
         onTodoAdd:          todoModel.onAdd,
         onTodoRemove:       todoModel.onDel,
@@ -59,6 +76,8 @@ const TodoItemsView = (todoController, rootElement) => {
             rootElement.removeChild(checkboxElement);
             removeMe();
         } );
+
+        todo.onTextChanged(() => inputElement.value = todo.getText());
 
         rootElement.appendChild(deleteButton);
         rootElement.appendChild(inputElement);
