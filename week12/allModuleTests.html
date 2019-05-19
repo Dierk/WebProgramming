@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> All Tests </title>
+
+    <!--todo: make this dependency disappear :-)-->
+    <script src="util/test.js"></script>
+</head>
+<body>
+
+<h1>All Module Tests in HtmlJs</h1>
+
+<p>Module tests do not work from file. They must be loaded via http or the browser SOP check and caching must be disabled :-(.</p>
+<p>Consider <tt>npx http-server -c-1 </tt> web server with no caching or <br>
+   bundling the js with <tt>rollup allModuleTests.js --file allModuleTestsBundle.js --format es --watch</tt> .</p>
+
+<pre id="out"></pre>
+
+<!--For FF compatibility, we have to put this in an extra file and load async-->
+
+<script src="allModuleTests.js" type="module"></script>
+
+</body>
+</html>
