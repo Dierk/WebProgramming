@@ -1,4 +1,6 @@
-// the mod module
+/**
+ * @module The mod module as an example for ES6 modules
+ */
 
 const pi = Math.PI;
 
@@ -14,6 +16,87 @@ const setB = v => b = v;
 
 // x = 2 // introduction of new globals is not allowed in modules
 // bundlers accept it, though, and produce code without the restriction.
+
+function Assert() {
+    const results = [];
+    return {
+        results: results,
+        true: (testResult) => {
+            if (!testResult) { console.error("test failed"); }
+            results.push(testResult);
+        },
+        is: (actual, expected) => {
+            const testResult = actual === expected;
+            if (!testResult) {
+                console.error("test failure. Got '"+ actual +"', expected '" + expected +"'");
+            }
+            results.push(testResult);
+        }
+    }
+}
+
+function test(name, callback) {
+    const assert = Assert();
+    callback(assert);
+    report(name, assert.results);
+}
+
+function Suite(suiteName) {
+    const tests = [];
+    const suite = {
+        test: (testName, callback) => test(suiteName + "-"+ testName, callback),
+        add:  (testName, callback) => tests.push([testName, callback]),
+        run:  () => {
+            tests.forEach( ([testName, callback]) => suite.test(testName, callback) );
+        }
+    };
+    return suite;
+}
+
+// test result report
+// report :: String, [Bool] -> DOM ()
+function report(origin, ok) {
+    const extend = 20;
+    if ( ok.every( elem => elem) ) {
+        write(" "+ padLeft(ok.length, 3) +" tests in " + padRight(origin, extend) + " ok.");
+        return;
+    }
+    let reportLine = "    Failing tests in " + padRight(origin, extend);
+    bar(reportLine.length);
+    write("|" + reportLine+ "|");
+    for (let i = 0; i < ok.length; i++) {
+        if( ! ok[i]) {
+            write("|    Test #"+ padLeft(i, 3) +" failed                     |");
+        }
+    }
+    bar(reportLine.length);
+}
+
+function write(message) {
+    const out = document.getElementById('out');
+    out.innerText += message + "\n";
+}
+
+function bar(extend) {
+    write("+" + "-".repeat(extend) + "+");
+}
+
+// padRight :: String, Int -> String
+function padRight(str, extend) {
+    return "" + str + fill(str, extend);
+}
+
+function padLeft(str, extend) {
+    return "" + fill(str, extend) + str;
+}
+
+function fill(str, extend) {
+    const len = str.toString().length; // in case str is not a string
+    if (len > extend) {
+        return str;
+    }
+    return " ".repeat(extend - len);
+}
 
 const modSuite = Suite('mod');
 
@@ -48,7 +131,9 @@ modSuite.add("singleton", assert => {
 
 modSuite.run();
 
-// module Person (just an immutable product type)
+/**
+ * @module Person (just an immutable product type)
+ */
 
 // ctor
 

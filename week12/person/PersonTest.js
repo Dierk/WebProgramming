@@ -2,6 +2,7 @@
 // import { Suite, test } from '../util/test.js'
 
 import { Person, firstname, setLastname, lastname, equals, toObj, toPerson, toString } from './Person.js'
+import { Suite }                                                                       from '../util/test.js'
 
 const person = Suite("person");
 

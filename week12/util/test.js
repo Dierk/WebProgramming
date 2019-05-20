@@ -1,4 +1,5 @@
-"use strict";
+
+export { Suite }
 
 function Assert() {
     const results = [];
