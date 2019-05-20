@@ -18,6 +18,7 @@ const TodoController = () => {
     };
 
     const todoModel = ObservableList([]); // observable array of Todos, this state is private
+    const scheduler = Scheduler();
     // todo: we need a scheduler
 
     const addTodo = () => {
@@ -33,10 +34,16 @@ const TodoController = () => {
         todoModel.add(newTodo);
         newTodo.setText('...');
 
-        fortuneService( text => {        // todo: schedule the fortune service and proceed when done
-                newTodo.setText(text);
-            }
+        scheduler.add( ok =>
+           fortuneService( text => {        // todo: schedule the fortune service and proceed when done
+                   newTodo.setText(text);
+                   ok();
+               }
+           )
+
         );
+
+
 
     };
 
