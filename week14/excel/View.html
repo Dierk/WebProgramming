@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Excel (kind of)</title>
+</head>
+
+
+<body>
+
+<table>
+    <thead></thead>
+    <tbody id="dataContainer">
+
+    </tbody>
+</table>
+
+<button id="calculate">Calculate</button>
+
+<script>
+
+    import('./excel.js')
+        .then ( excel => {
+            excel.startExcel();
+            document.getElementById("calculate").onclick = excel.refresh;
+        });
+
+</script>
+
+</body>
+
+</html>
